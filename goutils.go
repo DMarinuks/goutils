@@ -1,7 +1,15 @@
 package goutils
 
+import (
+	"io"
+	"io/ioutil"
+	"net/http"
+	"strings"
+)
+
 type strInterface struct {}
 type intInterface struct {}
+type httpInterface struct {}
 
 // FindInSlice takes a slice and looks for an element in it. If found it will
 // return it's key, otherwise it will return -1 and a bool of false.
@@ -43,5 +51,30 @@ func (intInterface) InSlice(a int, list []int) bool {
 	return false
 }
 
+// Request - takes method as string, url as string, headers as map[string]string and boyd as io.Reader.
+// It returns status code as int, response body as []byte and error
+func (httpInterface) Request(method string, url string, headers map[string]string, body io.Reader) (int, []byte, error) {
+	req, err := http.NewRequest(strings.ToUpper(method), url, body)
+	if err != nil {
+		return -1, nil, err
+	}
+	for key, val := range headers {
+		req.Header.Set(key, val)
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return -1, nil, err
+	}
+	defer resp.Body.Close()
+
+	respBody, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return -1, nil, err
+	}
+	return resp.StatusCode, respBody, nil
+}
+
 var Str = &strInterface{}
 var Int = &intInterface{}
+var Http = &httpInterface{}
