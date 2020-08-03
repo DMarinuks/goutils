@@ -26,3 +26,12 @@ func TestStringInSlice(t *testing.T) {
 		t.Errorf("IntInSlice() = %v, want %v", ok, true)
 	}
 }
+
+func TestSliceInString(t *testing.T) {
+	a := []string{"bar", "foo"}
+	b := "test me foo"
+	_, ok := Slice.InString(a, b)
+	if !ok {
+		t.Errorf("IntInSlice() = %v, want %v", ok, true)
+	}
+}

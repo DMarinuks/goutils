@@ -8,6 +8,7 @@ import (
 )
 
 type strInterface struct {}
+type sliceInterface struct {}
 type intInterface struct {}
 type httpInterface struct {}
 
@@ -29,6 +30,16 @@ func (strInterface) InSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+// InString returns
+func (sliceInterface) InString(a []string, b string) (int, bool) {
+	for i, v := range a {
+		if strings.Contains(b, v) {
+			return i, true
+		}
+	}
+	return -1, false
 }
 
 // FindInSlice takes a slice and looks for an element in it. If found it will
@@ -76,5 +87,6 @@ func (httpInterface) Request(method string, url string, headers map[string]strin
 }
 
 var Str = &strInterface{}
+var Slice = &sliceInterface{}
 var Int = &intInterface{}
 var Http = &httpInterface{}
