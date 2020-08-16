@@ -29,8 +29,17 @@ func TestStringInSlice(t *testing.T) {
 
 func TestSliceInString(t *testing.T) {
 	a := []string{"bar", "foo"}
-	b := "test me foo"
+	b := "foo"
 	_, ok := Slice.InString(a, b)
+	if !ok {
+		t.Errorf("IntInSlice() = %v, want %v", ok, true)
+	}
+}
+
+func TestSliceContains(t *testing.T) {
+	a := []string{"bar", "foo"}
+	b := "test me foo"
+	_, ok := Slice.Contains(a, b)
 	if !ok {
 		t.Errorf("IntInSlice() = %v, want %v", ok, true)
 	}
