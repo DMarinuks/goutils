@@ -15,9 +15,17 @@ A collection of useful utilities for golang.
    Int.InSlice(a int, list []int) bool
    
 #### Slice methods
-1.  Check if string(val) contains any string from slice
+1.  Check if slice has a string
     ```golang
-    Slice.InString(slice []int, val string) (int, bool)
+    Slice.HasString(slice []int, val string) (int, bool)
+    ```
+2.  Check if slice contains string, returns index -1 if not found.
+    ```golang
+    Slice.Contains(slice []string, val string) (int, bool)
+    ```
+3.  Check if slice contains string
+    ```golang
+    Slice.TrimSpace(slice []string) (int, bool)
     ```
    
 #### Http methods
