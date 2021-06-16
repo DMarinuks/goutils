@@ -7,10 +7,10 @@ import (
 	"strings"
 )
 
-type strInterface struct {}
-type sliceInterface struct {}
-type intInterface struct {}
-type httpInterface struct {}
+type strInterface struct{}
+type sliceInterface struct{}
+type intInterface struct{}
+type httpInterface struct{}
 
 // FindInSlice takes a slice and looks for an element in it. If found it will
 // return it's key, otherwise it will return -1 and a bool of false.
@@ -22,6 +22,7 @@ func (strInterface) FindInSlice(slice []string, val string) (int, bool) {
 	}
 	return -1, false
 }
+
 // InSlice takes a string and a slice. It will return bool.
 func (strInterface) InSlice(a string, list []string) bool {
 	for _, b := range list {
@@ -32,9 +33,9 @@ func (strInterface) InSlice(a string, list []string) bool {
 	return false
 }
 
-// InString takes slice and a string and checks if any of the strings in slice
+// HasString takes slice and a string and checks if any of the strings in slice
 // matching given string
-func (sliceInterface) InString(a []string, b string) (int, bool) {
+func (sliceInterface) HasString(a []string, b string) (int, bool) {
 	for i, v := range a {
 		if v == b {
 			return i, true
@@ -43,7 +44,7 @@ func (sliceInterface) InString(a []string, b string) (int, bool) {
 	return -1, false
 }
 
-// InString takes slice and a string and checks if given string contains any
+// Contains takes slice and a string and checks if given string contains any
 // of the strings from slice
 func (sliceInterface) Contains(a []string, b string) (int, bool) {
 	for i, v := range a {
@@ -54,9 +55,16 @@ func (sliceInterface) Contains(a []string, b string) (int, bool) {
 	return -1, false
 }
 
-// FindInSlice takes a slice and looks for an element in it. If found it will
-// return it's key, otherwise it will return -1 and a bool of false.
-func (intInterface) FindInSlice(slice []int, val int) (int, bool) {
+// TrimSpace for all strings in slice
+func (sliceInterface) TrimSpace(arr []string) {
+	for i, a := range arr {
+		arr[i] = strings.TrimSpace(a)
+	}
+}
+
+// IndexOf takes a slice and looks for an element in it. If found it will
+// return it's index, otherwise it will return -1 and a bool of false.
+func (intInterface) IndexOf(slice []int, val int) (int, bool) {
 	for i, item := range slice {
 		if item == val {
 			return i, true
@@ -64,6 +72,7 @@ func (intInterface) FindInSlice(slice []int, val int) (int, bool) {
 	}
 	return -1, false
 }
+
 // InSlice takes an int and a slice. It will return bool.
 func (intInterface) InSlice(a int, list []int) bool {
 	for _, b := range list {
@@ -89,7 +98,7 @@ func (httpInterface) Request(method string, url string, headers map[string]strin
 	if err != nil {
 		return -1, nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	respBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -97,8 +106,3 @@ func (httpInterface) Request(method string, url string, headers map[string]strin
 	}
 	return resp.StatusCode, respBody, nil
 }
-
-var Str = &strInterface{}
-var Slice = &sliceInterface{}
-var Int = &intInterface{}
-var Http = &httpInterface{}
