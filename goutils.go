@@ -106,3 +106,8 @@ func (httpInterface) Request(method string, url string, headers map[string]strin
 	}
 	return resp.StatusCode, respBody, nil
 }
+
+var Str = &strInterface{}
+var Slice = &sliceInterface{}
+var Int = &intInterface{}
+var Http = &httpInterface{}

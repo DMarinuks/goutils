@@ -6,10 +6,6 @@ import (
 	"testing"
 )
 
-var Str = &strInterface{}
-var Slice = &sliceInterface{}
-var Int = &intInterface{}
-
 func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
