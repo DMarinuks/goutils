@@ -33,22 +33,22 @@ func (strInterface) InSlice(a string, list []string) bool {
 	return false
 }
 
-// HasString takes slice and a string and checks if any of the strings in slice
-// matching given string
-func (sliceInterface) HasString(a []string, b string) (int, bool) {
-	for i, v := range a {
-		if v == b {
+// SliceContains takes a slice of strings and a string and checks if a given string contains any string from slice
+// return index in slice and bool (found)
+func (strInterface) SliceContains(list []string, a string) (int, bool) {
+	for i, v := range list {
+		if strings.Contains(a, v) {
 			return i, true
 		}
 	}
 	return -1, false
 }
 
-// Contains takes slice and a string and checks if given string contains any
-// of the strings from slice
+// Contains takes slice and a string and checks if any of the strings in slice
+// matching given string
 func (sliceInterface) Contains(a []string, b string) (int, bool) {
 	for i, v := range a {
-		if strings.Contains(b, v) {
+		if v == b {
 			return i, true
 		}
 	}

@@ -7,6 +7,8 @@ A collection of useful utilities for golang.
    Str.FindInSlice(slice []string, val string) (int, bool)
 2. ```golang
    Str.InSlice(a string, list []string) bool
+3. ```golang
+   Str.SliceContains(list []string, a string) (int, bool)
    
 #### Int methods
 1. ```golang
@@ -17,13 +19,9 @@ A collection of useful utilities for golang.
 #### Slice methods
 1.  Check if slice has a string
     ```golang
-    Slice.HasString(slice []int, val string) (int, bool)
+    Slice.Contains(slice []int, val string) (int, bool)
     ```
-2.  Check if slice contains string, returns index -1 if not found.
-    ```golang
-    Slice.Contains(slice []string, val string) (int, bool)
-    ```
-3.  Check if slice contains string
+2.  Check if slice contains string
     ```golang
     Slice.TrimSpace(slice []string) (int, bool)
     ```

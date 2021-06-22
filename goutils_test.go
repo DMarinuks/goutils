@@ -28,10 +28,10 @@ func TestStringInSlice(t *testing.T) {
 	}
 }
 
-func TestSliceInString(t *testing.T) {
+func TestStrSliceContains(t *testing.T) {
 	a := []string{"bar", "foo"}
-	b := "foo"
-	_, ok := Slice.HasString(a, b)
+	b := "foo test"
+	_, ok := Str.SliceContains(a, b)
 	if !ok {
 		t.Errorf("IntInSlice() = %v, want %v", ok, true)
 	}
@@ -39,7 +39,7 @@ func TestSliceInString(t *testing.T) {
 
 func TestSliceContains(t *testing.T) {
 	a := []string{"bar", "foo"}
-	b := "test me foo"
+	b := "foo"
 	_, ok := Slice.Contains(a, b)
 	if !ok {
 		t.Errorf("IntInSlice() = %v, want %v", ok, true)
